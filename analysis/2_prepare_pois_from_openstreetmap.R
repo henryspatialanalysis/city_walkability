@@ -105,7 +105,7 @@ destinations_table <- lapply(destination_types, function(d_type){
     [, address := paste(addr.housenumber, addr.street, addr.city, addr.postcode)]
     [, address := gsub(' +', ' ', address)]
     [address == ' ', address := NA_character_ ]
-    [, .(name, longitude = X.lon, latitude = X.lat, address, type = d_type)]
+    [, .(name, lon = X.lon, lat = X.lat, address, type = d_type)]
   )
   return(formatted_locations)
 }) |> rbindlist()

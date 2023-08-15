@@ -144,11 +144,11 @@ park_points_list <- lapply(seq_len(nrow(parks_subset)), function(row_idx){
 all_park_points <- do.call(park_points_list, what = rbind) |>
   sf::st_transform(crs = sf::st_crs(4326))
 
-# Convert to a table with the fields name, longitude, latitude, type
+# Convert to a table with the fields name, lon, lat, type
 parks_table <- data.table::data.table(
   name = all_park_points$name,
-  longitude = sf::st_coordinates(all_park_points)[, 'X'],
-  latitude = sf::st_coordinates(all_park_points)[, 'Y'],
+  lon = sf::st_coordinates(all_park_points)[, 'X'],
+  lat = sf::st_coordinates(all_park_points)[, 'Y'],
   type = 'Parks'
 )
 
@@ -175,9 +175,9 @@ stops_cropped_table <- cbind(
 stops_cropped_table[, type := 'Other transit stops']
 stops_cropped_table[grepl('599', ROUTE_LIST), type := 'Light rail stops']
 
-# Format as table with columns name, longitude, latitute, and type
+# Format as table with columns name, lon, lat, and type
 transit_table <- (stops_cropped_table
-  [, .(name = ON_STREET_NAME, longitude = X, latitude = Y, type)]
+  [, .(name = ON_STREET_NAME, lon = X, lat = Y, type)]
   [order(type, name)]
 )
 
@@ -191,7 +191,7 @@ libraries_cropped <- raw_data_list$seattle_libraries[CODE == 390, ] |>
 libraries_table <- cbind(
   sf::st_coordinates(libraries_cropped),
   as.data.table(libraries_cropped)
-)[, .(name = NAME, address = ADDRESS, longitude = X, latitude = Y, type = 'Libraries')]
+)[, .(name = NAME, address = ADDRESS, lon = X, lat = Y, type = 'Libraries')]
 
 
 ## 6. Combine points of interest prepared in this script into a single table and save --->
@@ -202,6 +202,6 @@ destinations_table_city_specific <- rbindlist(
   fill = T
 )
 data.table::fwrite(
-  destinations_table_seattle_specific,
+  destinations_table_city_specific,
   file = file.path(config$directories$prepared_data, 'destinations_city_specific.csv')
 )
