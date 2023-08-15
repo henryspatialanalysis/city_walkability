@@ -17,7 +17,12 @@ directories:
   results: "~/temp_data/city_walkability/results"
 download_paths:
   osm_extract: "https://download.geofabrik.de/north-america/us/washington-latest.osm.pbf"
-elevation_raster_settings: # See elevatr::get_elev_raster()
+  overpass_api_endpoint: "https://overpass-api.de/api/interpreter"
+osm_destination_queries:
+  'Supermarkets': ['shop=supermarket']
+  'Restaurants': ['amenity=restaurant']
+  'Coffee shops': ['amenity=cafe']
+elevation_raster_settings:
   z: 13
   clip: 'bbox'
   neg_to_na: TRUE
