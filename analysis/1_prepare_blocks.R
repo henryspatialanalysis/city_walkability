@@ -7,7 +7,7 @@
 ##
 ## Before running (see README.md for details):
 ##  - Download R version 4.1 or newer
-##  - Install R packages: argparse, elevatr, sf, terra, tidycensus, tigris, units, yaml
+##  - Install R packages: argparse, elevatr, glue, sf, terra, tidycensus, tigris, units, yaml
 ##  - Install osmosis command line tool
 ##  - Update settings in config.yaml to match your desired city
 ##
@@ -33,7 +33,7 @@ DEFAULT_CONFIG_FILEPATH <- "~/repos/city_walkability/analysis/config.yaml"
 
 # Load all required packages
 load_packages <- c(
-  'argparse', 'elevatr', 'sf', 'terra', 'tidycensus', 'tigris', 'units', 'yaml'
+  'argparse', 'elevatr', 'glue', 'sf', 'terra', 'tidycensus', 'tigris', 'units', 'yaml'
 )
 load_packages |> lapply(library, character.only = T) |> invisible()
 
@@ -56,7 +56,7 @@ settings <- config$project_settings
 # Create all folders
 for(dir in config$directories) dir.create(dir, recursive = TRUE)
 
-# Use shapefile cache for faster re-runs
+# Cache census shapefiles for faster re-runs
 options(tigris_use_cache = TRUE)
 
 
@@ -191,11 +191,10 @@ utils::download.file(
 subset_osm_path <- file.path(config$directories$prepared_data, 'osm_subset.pbf') |>
   normalizePath() |>
   suppressWarnings()
-osmosis_command <- paste0(
-  "osmosis --read-pbf ", full_osm_path, " --bounding-box top='",
-  bb$ymax, "' left='", bb$xmin, "' bottom='", bb$ymin, "' right='", bb$xmax,
-  "' --write-pbf ", subset_osm_path
-)
+osmosis_command <- glue::glue(c(
+  "osmosis --read-pbf {full_osm_path} --bounding-box top='{bb$ymax}' left='{bb$xmin}' ",
+  "bottom='{bb$ymin}' right='{bb$xmax}' --write-pbf {subset_osm_path}"
+))
 message("Running osmosis to subset the OSM file to the study area")
 system(osmosis_command)
 message("Finished downloading and subsetting OSM extract.")
