@@ -1,6 +1,6 @@
 # 15-minute city analysis: reproduction package
 
-The goal of this reproduction package is to empower other people to create their own accessibility analyses tailored to different cities and contexts. Following the instructions in this repository, using only free tools and pulling from publicly-available data, you can create your own interactive web map that shows travel times to the nearest amenities in your city.
+The goal of this reproduction package is to empower other people to create their own accessibility analyses tailored to different cities and contexts. Following the instructions in this repository, using only free tools and pulling from publicly-available data, you can create your own interactive web map that shows walking times to the nearest amenities in your city.
 
 [![Screenshot of the interactive web map](example_map.png)](https://nathenry.com/writing/2023-02-07-seattle-walkability.html#walkability)
 
