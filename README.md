@@ -26,10 +26,10 @@ Per the MIT license, you can freely adapt any of the code in this repository for
 
 I've tailored this reproduction package to be easily adapted to other cities, destinations, and modes of transit. This required a few changes from the original analysis:
 
-- _Everything happens in the code_: All of the file downloads, reformatting, and edits happen directly in R scripts.
-- _All settings are in a configuration file_: The walkability analysis can be reproduced in a different city by changing settings in the `analysis/config.yaml` file.
-- _Slightly different destinations_: Because some destinations required too many city-specific tweaks, detailed in the next section.
-- _Moving from OpenRouteService to R5_: A big improvement in terms of speed and features, detailed in a later section.
+- _Everything happens in the code:_ All of the file downloads, reformatting, and edits happen directly in R scripts.
+- _All settings are in a configuration file:_ The walkability analysis can be reproduced in a different city by changing settings in the `analysis/config.yaml` file.
+- _Slightly different destinations:_ Because some destinations required too many city-specific tweaks, detailed in the next section.
+- _Moving from OpenRouteService to R5:_ A big improvement in terms of speed and features, detailed in a later section.
 
 In a full analysis, you would want to extensively vet the list of destinations produced from publicly-available data sources before running estimating travel times. For generality's sake, this repository does not build that step into the code. That means that the results in this repository should only be used as an example, and [the map from the original article](https://nathenry.com/writing/2023-02-07-seattle-walkability.html#walkability) is still the best source for understanding walkability across Seattle.
 
@@ -45,8 +45,8 @@ In the original analysis, I also included "Bus stops connecting to downtown" as 
 
 In the original walkability analysis, I spun up an [OpenRouteService](https://openrouteservice.org/) server on my local computer, then repeatedly queried origin-destination pairs using the ["openrouteservice" R package](https://openrouteservice.org/openrouteservice-r-package/). In this analysis, I switched to querying [R5](https://github.com/conveyal/r5) using the ["r5r" R package](https://cran.r-project.org/web/packages/r5r/index.html). There are a lot of things to like about R5 and r5r:
 
-1. _Easier setup_: You can set up and query an R5 Java machine entirely through the "r5r" R interface, compared to a multi-step Docker setup process for OpenRouteService.
-2. _Faster and more reliable_: I found that "r5r" was about 100x faster than the OpenRouteService R interface, cycling through the same number of origin-destination pairs in minutes rather than hours. R5 also consistently returned results, requiring less error handling on my end.
-3. _More features for measuring urban mobility_: R5 parses GTFS feeds to calculate transit routes; interfaces nicely with the "sf" R package for spatial analysis; and offers more tools for understanding accessibility across multiple transit modes and destinations.
+1. _Easier setup:_ You can set up and query an R5 Java machine entirely through the "r5r" R interface, compared to a multi-step Docker setup process for OpenRouteService.
+2. _Faster and more reliable:_ I found that "r5r" was about 100x faster than the OpenRouteService R interface, cycling through the same number of origin-destination pairs in minutes rather than hours. R5 also consistently returned results, requiring less error handling on my end.
+3. _More features for measuring urban mobility:_ R5 parses GTFS feeds to calculate transit routes; interfaces nicely with the "sf" R package for spatial analysis; and offers more tools for understanding accessibility across multiple transit modes and destinations.
 
 If you want to incorporate real-world traffic, biking, and transit data into your accessibility analysis, please feel free to [get in touch](https://henryspatialanalysis.com/get-in-touch.html)!
