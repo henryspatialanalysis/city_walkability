@@ -1,0 +1,47 @@
+.leafmap {
+    width: 100%;
+    height: 85vh;
+    min-height: 400px;
+    max-height: 1000px;
+    border: 1px solid #AAA;
+    background: #DDD;
+}
+
+.leafinfo {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    color: #555;
+}
+
+.movebox {
+    min-width: 150px;
+}
+.movebox h4 {
+    margin: 0 0 5px;
+    font: 12px/14px Arial, Helvetica, sans-serif;
+    color: #777;
+    text-align: center;
+}
+.movebox p {
+    padding: 0px;
+    margin: 5px 0px 0px 0px;
+    font-size: 10px;
+}
+
+.leaflegend {
+    line-height: 18px;
+}
+.leaflegend b {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+}
+
+.blank-list {
+    list-style-type: none;
+}
