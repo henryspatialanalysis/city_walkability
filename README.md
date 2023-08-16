@@ -43,10 +43,10 @@ In the original analysis, I also included "Bus stops connecting to downtown" as 
 
 ### Switching from OpenRouteServer to R5
 
-In the original walkability analysis, I spun up an [OpenRouteService](https://openrouteservice.org/) server on my local computer, then repeatedly queried origin-destination pairs using the "openrouteservice" [R package](https://openrouteservice.org/openrouteservice-r-package/). In this analysis, I switched to querying [R5](https://github.com/conveyal/r5) using the "r5r" [R package](https://cran.r-project.org/web/packages/r5r/index.html). There are a lot of things to like about R5 and r5r:
+In the original walkability analysis, I spun up an [OpenRouteService](https://openrouteservice.org/) server on my local computer, then repeatedly queried origin-destination pairs using the ["openrouteservice" R package](https://openrouteservice.org/openrouteservice-r-package/). In this analysis, I switched to querying [R5](https://github.com/conveyal/r5) using the ["r5r" R package](https://cran.r-project.org/web/packages/r5r/index.html). There are a lot of things to like about R5 and r5r:
 
-1. _Easier setup_: You can set up and query the R5 Java Machine entirely through the r5r interface, versus a multi-step Docker setup process for OpenRouteService.
-2. _Faster and more reliable_: I found that r5r was about 100x faster than the OpenRouteService R interface, cycling through the same number of origin-destination pairs in minutes rather than hours. R5 also consistently returned results, requiring less error handling on my end.
-3. _More features for measuring urban mobility_: R5 can parse GTFS feeds to calculate transit routes; interfaces nicely with the "sf" R package for spatial analysis; and offers more tools for understanding accessibility across multiple transit modes and destinations.
+1. _Easier setup_: You can set up and query an R5 Java machine entirely through the "r5r" R interface, compared to a multi-step Docker setup process for OpenRouteService.
+2. _Faster and more reliable_: I found that "r5r" was about 100x faster than the OpenRouteService R interface, cycling through the same number of origin-destination pairs in minutes rather than hours. R5 also consistently returned results, requiring less error handling on my end.
+3. _More features for measuring urban mobility_: R5 parses GTFS feeds to calculate transit routes; interfaces nicely with the "sf" R package for spatial analysis; and offers more tools for understanding accessibility across multiple transit modes and destinations.
 
 If you want to incorporate real-world traffic, biking, and transit data into your accessibility analysis, please feel free to [get in touch](https://henryspatialanalysis.com/get-in-touch.html)!
