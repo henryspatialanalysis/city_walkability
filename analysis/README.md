@@ -9,17 +9,18 @@ Before running the scripts in this folder, make sure that you have the following
 - Install [R](https://cran.r-project.org/bin/windows/base/) version 4.1 or above. New R users might find [RStudio](https://posit.co/download/rstudio-desktop/) a useful way to navigate the code.
 - Install 12 R packages from CRAN: `install.packages(c('argparse', 'data.table', 'devtools', 'httr', 'glue', 'sf', 'terra', 'tictoc', 'tidycensus', 'tigris', 'units', 'yaml'))`
 - Install the "elevatr" package from GitHub: `devtools::install_github('jhollist/elevatr')`
-- Install the free Java SE Development Kit 11, a requirement for the "r5r" package. For more information, see section 2 from this "r5r" [vignette](https://cran.r-project.org/web/packages/r5r/vignettes/r5r.html).
 - Install the "r5r" package from GitHub: `devtools::install_github("ipeaGIT/r5r", subdir = "r-package")`
+- Install the free Java SE Development Kit 11, a requirement for the "r5r" package. For more information, see section 2 from this "r5r" [vignette](https://cran.r-project.org/web/packages/r5r/vignettes/r5r.html).
+- Install the [Osmosis](https://wiki.openstreetmap.org/wiki/Osmosis/Installation) command line tool for processing OpenStreetMap data
 
 You may also want to apply for API keys to repeatedly pull US Census and OpenTopography data.
 - Apply for a US Census API key [here](https://api.census.gov/data/key_signup.html)
 - Apply for an OpenTopography API key by creating an account on [their website](https://opentopography.org/), then selecting "Request an API Key"
-- Add both API keys to the `~/.Renviron` file (you may need to create this file if it does not already exist). The file should include lines that look like this:
+- Add both API keys to the `~/.Renviron` file. You may need to create this file if it does not already exist. The file should include lines that look like this:
 
 ```
 OPENTOPO_KEY="asdf1234" # Update to the actual key
-CENSUS_API_KEY="ghjk5678" # Update to the actual key
+CENSUS_API_KEY="asdf1234" # Update to the actual key
 ```
 
 
@@ -31,7 +32,7 @@ If you are reproducing this analysis for Seattle, you only need to change the `d
 
 If you are running this analysis for another city or county in the United States, you will also need to change `state_name`, `county_name`, and (optionally) `city_name` in the config. For analyses outside of Washington, you will also need to specify a different OpenStreetMap extract under `osm_extract`. From http://download.geofabrik.de/, navigate to the smallest possible extract that matches your study area, right-click and select "Copy link address", and copy it to the config. Script (3) prepares spatial data from Seattle-specific sources, so you can either update the code to prepare a table of your own inputs or skip this script entirely.
 
-Script (1) prepares input block boundaries based on data from the US Census. If you are running this analysis for a location outside of the United States, change lines 70-114 in script (1) to load block polygons from a different source. You will also want to choose a different projection that's suitable for your country in `working_crs`.
+Script (1) prepares input block boundaries based on data from the US Census. If you are running this analysis for a location outside of the United States, change lines 70-114 in script (1) to load block polygons from a different source. You will also want to set `working_crs` to a different projection that's suitable for your country.
 
 
 ## Running scripts
