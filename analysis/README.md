@@ -1,6 +1,6 @@
 # 15-minute city analysis code
 
-The scripts in this folder prepare geographic data and run the analysis of travel time between city blocks and different destination types across a city.   
+The scripts in this folder calculate travel times from blocks to various amenities across a city or county.
 
 
 ## Setup
