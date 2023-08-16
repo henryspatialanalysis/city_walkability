@@ -29,9 +29,9 @@ Scripts in this folder all run based on settings in the `config.yaml` file. See 
 
 If you are reproducing this analysis for Seattle, you only need to change the `directories` in `config.yaml` to change where the outputs get saved.
 
-If you are running this analysis for another city or county in the United States, you will also need to change `state_name`, `county_name`, and (optionally) `city_name` in the config. For analyses outside of Washington, you will also need to specify a different OpenStreetMap extract under `download_paths$osm_extract`. From http://download.geofabrik.de/, navigate to the smallest possible extract that matches your study area, right-click and select "Copy link address", and copy it to the config. Script (3) prepares spatial data from Seattle-specific sources, so you can either update the code to prepare a table of your own inputs or skip this script entirely.
+If you are running this analysis for another city or county in the United States, you will also need to change `state_name`, `county_name`, and (optionally) `city_name` in the config. For analyses outside of Washington, you will also need to specify a different OpenStreetMap extract under `osm_extract`. From http://download.geofabrik.de/, navigate to the smallest possible extract that matches your study area, right-click and select "Copy link address", and copy it to the config. Script (3) prepares spatial data from Seattle-specific sources, so you can either update the code to prepare a table of your own inputs or skip this script entirely.
 
-Script (1) prepares input block boundaries based on data from the US Census. If you are running this analysis for a location outside of the United States, change lines 70-114 in script (1) to load block polygons from a different source. You will also want to choose a different projection that's suitable for your country in `config$project_settings$working_crs`.
+Script (1) prepares input block boundaries based on data from the US Census. If you are running this analysis for a location outside of the United States, change lines 70-114 in script (1) to load block polygons from a different source. You will also want to choose a different projection that's suitable for your country in `working_crs`.
 
 
 ## Running scripts
