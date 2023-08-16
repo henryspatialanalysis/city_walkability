@@ -1,34 +1,73 @@
 project_settings:
+  # Analysis location
+  # State and county names must match a row in tigris::fips_codes
   state_name: "Washington"
   county_name: "King County"
-  subset_to_city: TRUE
+  subset_to_city: TRUE # Subset to a single city within the county?
   city_name: "Seattle"
+  # Projection to use when calculating distance and area
+  # This is a reasonable projection for any location in the continental US
+  # Visualization and travel time analysis results will still be saved as unprojected lat/long
   working_crs: '+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +datum=NAD83 +units=m'
+  # Should water bodies be removed from the map of blocks?
   remove_water_bodies: TRUE
-  water_body_area_threshold: 0.25
+  water_body_area_threshold: 0.25 # Smallest water bodies to remove - see tigris::erase_water()
+  # Should the visualization only show travel times to populated blocks?
   subset_to_populated_blocks: TRUE
+  # Should the analysis remove very small slivers of blocks, which are often just data artifacts?
+  # Units of measurement is square units of the working CRS - 'm^2' in the default CRS 
   min_block_size: 100
+  # Max simplification distance. Units are based on the working CRS - 'm' in the default CRS
   simplify_tolerance: 10
-  buffer: 2500
-  census_year: 2020
-  park_min_size_sqft: 20000
+  buffer: 2500 # Search for potential destinations this far outside the 
+  census_year: 2020 # Relevant for pulling US Census populations
+  park_min_size_sqft: 20000 # Always defined in square feet. Set as 0 to keep all parks
+  # Gigabytes of memory to assign to Java when running R5
+  # If R5 crashes due to lack of memory, increase this limit
   r5_mem_gb: 5
+  # Starting zoom level for the travel time map. See https://leafletjs.com/examples/zoom-levels/
   viz_starting_zoom_level: 11
+## Directories where files from the analysis will be saved. If these directories do not
+##   exist beforehand, they will be created in the scripts
 directories:
+  # Direct data downloads will be saved in this folder
   raw_data: "/home/nathenry/temp_data/city_walkability/raw_data"
+  # Prepared data from scripts (1), (2), and (3) will be saved in this folder
   prepared_data: "/home/nathenry/temp_data/city_walkability/prepared_data"
+  # Analysis results from script (4) will be saved in this folder
   results: "/home/nathenry/temp_data/city_walkability/results"
+## Paths for downloading data from the web
 download_paths:
+  # OpenStreetMap extract
+  # This should be changed to match the state/county/city set in the project settings
+  # From http://download.geofabrik.de/, navigate to the smallest possible extract that
+  #   matches your study area, right-click and select "Copy link address" instead of
+  #   downloading, and set the path below. 
   osm_extract: "https://download.geofabrik.de/north-america/us/washington-latest.osm.pbf"
+  # This Overpass API path should be usable for most cases
   overpass_api_endpoint: "https://overpass-api.de/api/interpreter"
+  # Seattle-specific inputs used in script (3)
   seattle_spr_parks: 'https://data-seattlecitygis.opendata.arcgis.com/datasets/SeattleCityGIS::park-boundary-outline.geojson'
   seattle_other_parks: 'https://data-seattlecitygis.opendata.arcgis.com/datasets/SeattleCityGIS::parks-not-spr.geojson'
   seattle_bus_stops: 'https://gis-kingcounty.opendata.arcgis.com/datasets/kingcounty::transit-stops-for-king-county-metro-transitstop-point.csv'
   seattle_libraries: 'https://gis-kingcounty.opendata.arcgis.com/datasets/kingcounty::common-points-of-interest-for-king-county-common-interest-point.csv'
+# OpenStreetMap destination types
+# These settings are used to pull OpenStreetMap destinations in script (2). Each
+#   destination type is linked to an OpenStreetMap tag. For more details on tags, see the
+#   following pages:
+#   https://wiki.openstreetmap.org/wiki/Tags
+#   https://wiki.openstreetmap.org/wiki/Key:amenity
+#   https://wiki.openstreetmap.org/wiki/Key:shop
+#
+# If you list multiple tags associated with a destination type, script (2) will pull
+#   destinations associated with any of those tags. For example:
+#   'Bars': ['amenity=bar', 'amenity=pubs']
 osm_destination_queries:
   'Supermarkets': ['shop=supermarket']
   'Restaurants': ['amenity=restaurant']
   'Coffee shops': ['amenity=cafe']
+# Elevation raster settings. The defaults should be fine for most use cases. For details,
+#   see elevatr::get_elev_raster()
 elevation_raster_settings:
   z: 13
   clip: 'bbox'
